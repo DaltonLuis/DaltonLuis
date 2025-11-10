@@ -1,53 +1,58 @@
-# 👋 Hi, I'm Dalton Luis
+# 👋 Hey, I'm Dalton Luís
 
-I’m a builder focused on developer experience, scalable systems, and crafting products that solve real problems. I value clarity, iteration, and automation.
+I’m a software builder passionate about **developer experience**, **scalable systems**, and **automation that empowers creativity**.  
+I believe in clarity, small iterations, and measurable impact.
 
 ---
 
 ## 🚀 About Me
-- 🔭 Working on: full‑stack projects with React, Node.js, and Go
-- 🌱 Learning: cloud‑native patterns with Kubernetes and observability
-- 👯 Open to: open‑source collaboration and developer tooling
-- 💬 Topics: web performance, system design, CI/CD, automation
-- 📫 Connect: [LinkedIn](https://www.linkedin.com/in/dalton-bandeira-lu%C3%ADs) · [Email](mailto:luisinho2dbl@gmail.com)
-- ⚡ Fun fact: I like building small tools that remove repetitive work
+- 🔭 **Currently building:** full-stack applications with React, Node.js, and Go  
+- 🌱 **Learning:** Kubernetes, observability, and cloud-native design  
+- 👯 **Open to:** open-source collaboration and developer tooling projects  
+- 💬 **Topics I enjoy:** performance, automation, system design, CI/CD  
+- 📫 **Connect:** [LinkedIn](https://www.linkedin.com/in/dalton-bandeira-lu%C3%ADs) · [Email](mailto:luisinho2dbl@gmail.com)  
+- ⚡ **Fun fact:** I love creating small tools that eliminate repetitive tasks
 
 ---
 
 ## 🛠️ Tech Stack
 **Languages:** JavaScript · TypeScript · Python · Go  
-**Frameworks & Tools:** React · Node.js · Next.js · Docker  
+**Frameworks & Tools:** React · Next.js · Node.js · Docker  
 **Cloud & Data:** AWS · GCP · PostgreSQL · Redis  
-**Practices:** TDD · CI/CD · Documentation‑as‑Code
+**Practices:** TDD · CI/CD · Documentation-as-Code
 
 ---
 
 ## 🌟 Featured Projects
-- Project One — Real‑time analytics dashboard  
+- **Real-Time Analytics Dashboard** — Live data insights with React + PostgreSQL  
   Stack: React · Node.js · PostgreSQL
 
-- Project Two — Serverless APIs at scale  
-  Stack: TypeScript · AWS Lambda
+- **Serverless APIs at Scale** — Event-driven architecture for large-scale data  
+  Stack: TypeScript · AWS Lambda · DynamoDB
 
-(Replace with your actual repos and links.)
+*(Replace with actual repositories and links.)*
 
 ---
 
-## 🧭 How I Work
-- Small, measurable increments with clear acceptance criteria
-- Code reviews for quality and shared learning
-- Automate the repetitive; observe what matters
-- Communicate early, document decisions
+## 📈 Recent Activity
+
+| 🕒 Date | 🧩 Repository | 📝 Commit Message |
+|:--------|:--------------|:-----------------|
+| _Updating..._ |  |  |
+
+> _This section is automatically updated every day by a GitHub Action._
 
 ---
 
 ## 📊 GitHub Insights
-![DaltonLuis — Stats](https://github-readme-stats.vercel.app/api?username=DaltonLuis&show_icons=true&theme=github_dark)
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=DaltonLuis&layout=compact&theme=github_dark)
-![Streak](https://streak-stats.demolab.com?user=DaltonLuis&theme=github-dark-blue)
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=DaltonLuis&show_icons=true&theme=github_dark" alt="Stats" height="150" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=DaltonLuis&layout=compact&theme=github_dark" alt="Top Languages" height="150" />
+  <img src="https://streak-stats.demolab.com?user=DaltonLuis&theme=github-dark-blue" alt="Streak Stats" height="150" />
+</p>
 
 ---
 
 ## 🤝 Let’s Collaborate
-Open to interesting projects, open‑source contributions, and consulting.  
-If this resonates, let’s connect and build something impactful. 🚀
+Open to **interesting projects**, **open-source contributions**, and **consulting opportunities**.  
+If this resonates, let’s connect and build something impactful together.
