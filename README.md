@@ -1,84 +1,53 @@
-# Hi, I'm DaltonLuis 👋
+# 👋 Hi, I'm Dalton Luis
 
-Welcome to my GitHub profile! I'm a passionate builder who enjoys solving hard problems, improving developer experiences, and shipping polished projects. This README is a snapshot of who I am, what I build, and how we can collaborate — tailored to give visitors a quick, clear view of my work and interests.
+I’m a builder focused on developer experience, scalable systems, and crafting products that solve real problems. I value clarity, iteration, and automation.
 
 ---
 
 ## 🚀 About Me
-- 🔭 I’m currently working on: **[Project Name / Short Description]**
-- 🌱 I’m learning: **[Tech or Concept]**
-- 👯 I’m open to collaborating on: **[Project types / domains]**
-- 💬 Ask me about: **[Topics you enjoy discussing]**
-- 📫 How to reach me: **[email / LinkedIn / Twitter]**
-- ⚡ Fun fact: **[One-line personal detail or hobby]**
+- 🔭 Working on: full‑stack projects with React, Node.js, and Go
+- 🌱 Learning: cloud‑native patterns with Kubernetes and observability
+- 👯 Open to: open‑source collaboration and developer tooling
+- 💬 Topics: web performance, system design, CI/CD, automation
+- 📫 Connect: [LinkedIn](https://www.linkedin.com/in/dalton-bandeira-lu%C3%ADs) · [Email](mailto:luisinho2dbl@gmail.com)
+- ⚡ Fun fact: I like building small tools that remove repetitive work
 
 ---
 
-## ⭐ Highlights
-- Built and launched [Notable Project] used by [users / companies / community].
-- Improved performance or scalability of [system / service] by X%.
-- Contributed to [open-source project] — [brief impact].
+## 🛠️ Tech Stack
+**Languages:** JavaScript · TypeScript · Python · Go  
+**Frameworks & Tools:** React · Node.js · Next.js · Docker  
+**Cloud & Data:** AWS · GCP · PostgreSQL · Redis  
+**Practices:** TDD · CI/CD · Documentation‑as‑Code
 
 ---
 
-## 🛠️ Top Skills
-- Languages: JavaScript, TypeScript, Python, Go
-- Frameworks & Tools: React, Node.js, Docker, Kubernetes
-- Cloud & Data: AWS, GCP, PostgreSQL, Redis
-- Practices: TDD, CI/CD, Observability, Design Systems
+## 🌟 Featured Projects
+- Project One — Real‑time analytics dashboard  
+  Stack: React · Node.js · PostgreSQL
 
-(Replace or reorder the items above to match your real strengths.)
+- Project Two — Serverless APIs at scale  
+  Stack: TypeScript · AWS Lambda
 
----
-
-## 🔭 Featured Projects
-### Project One — [Short Tagline]
-Description: One-liner describing what problem it solves and for whom.  
-Tech: React · Node · PostgreSQL  
-Repo: [github.com/you/project-one](#)
-
-### Project Two — [Short Tagline]
-Description: One-liner describing key outcome or metric.  
-Tech: TypeScript · Serverless  
-Repo: [github.com/you/project-two](#)
-
-### Open-source Contributions
-- Contributed to [project-name] — fixed bug/improved feature X.
-- Maintainer / contributor to [project-name] — responsible for Y.
-
-(Provide links and short measurable outcomes where possible.)
+(Replace with your actual repos and links.)
 
 ---
 
 ## 🧭 How I Work
-- Prefer small, iterative increments with clear acceptance criteria.
-- Use code reviews to share learning and maintain quality.
-- Automate repetitive tasks and emphasize observability.
-- Communicate proactively and keep documentation current.
+- Small, measurable increments with clear acceptance criteria
+- Code reviews for quality and shared learning
+- Automate the repetitive; observe what matters
+- Communicate early, document decisions
 
 ---
 
-## 📫 Contact & Socials
-- Website: https://your-website.example
-- Email: mail@your-domain.example
-- LinkedIn: https://linkedin.com/in/your-handle
-- Twitter: https://twitter.com/your-handle
-- GitHub: https://github.com/DaltonLuis
+## 📊 GitHub Insights
+![DaltonLuis — Stats](https://github-readme-stats.vercel.app/api?username=DaltonLuis&show_icons=true&theme=github_dark)
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=DaltonLuis&layout=compact&theme=github_dark)
+![Streak](https://streak-stats.demolab.com?user=DaltonLuis&theme=github-dark-blue)
 
 ---
 
-## 📈 GitHub Stats
-> Add personalized GitHub stats and languages cards here (optional)
-- ![GitHub stats](https://github-readme-stats.vercel.app/api?username=DaltonLuis&show_icons=true)
-- ![Top languages](https://github-readme-stats.vercel.app/api/top-langs/?username=DaltonLuis&layout=compact)
-
-(Replace with the cards you prefer and tweak parameters.)
-
----
-
-## 🤝 Want to work together?
-I’m available for collaboration on interesting projects, open-source contributions, and consulting. If you like what you see, let's connect!
-
----
-
-Thank you for stopping by — I build things that matter, and I'm always learning. 👨‍💻✨
+## 🤝 Let’s Collaborate
+Open to interesting projects, open‑source contributions, and consulting.  
+If this resonates, let’s connect and build something impactful. 🚀
