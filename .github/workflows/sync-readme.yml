@@ -1,50 +1,112 @@
-- name: Sync README to all repos
-  env:
-    GH_TOKEN: ${{ secrets.MyGITHUB_TOKEN_SYNC }}
-  run: |
-      set -euo pipefail
-      sudo apt-get install -y gh jq
-      echo "$GH_TOKEN" | gh auth login --with-token
-      
-      echo "Fetching repositories..."
-      repos=$(gh api --paginate /user/repos -q '.[] | select(.fork == false and .archived == false and .full_name != "DaltonLuis/DaltonLuis")')
-      echo "$repos" | jq -c . > targets.json
-  
-      echo "Starting sync..."
-      while IFS= read -r repo; do
-        name=$(jq -r '.name' <<< "$repo")
-        full_name=$(jq -r '.full_name' <<< "$repo")
-        default_branch=$(jq -r '.default_branch' <<< "$repo")
-  
-        echo "Processing $full_name..."
-        git clone --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/${full_name}.git" workdir
-        cd workdir
-  
-        if [ -f README.md ] && cmp -s ../README.md README.md; then
-          echo "No changes - skipping"
-          cd ..
-          rm -rf workdir
-          continue
-        fi
-  
-        cp ../README.md .
-        git add README.md
-        git config user.name "DaltonLuis"
-        git config user.email "luisinho2dbl@gmail.com"
-  
-        if git diff --quiet; then
-          echo "No changes to commit"
-        else
-          git commit -m "chore: sync profile README"
-          git push origin "HEAD:$default_branch" || {
-            echo "Creating PR..."
-            branch="sync/readme-$(date +%s)"
-            git checkout -b "$branch"
-            git push origin "$branch"
-            gh pr create --title "Update README" --body "Automated sync from profile" --base "$default_branch"
-          }
-        fi
-  
-        cd ..
-      rm -rf workdir
-    done < targets.json
+name: 🔄 Sync Profile README + Update Commits
+
+on:
+  push:
+    paths:
+      - README.md
+  schedule:
+    - cron: "17 3 * * *" # Daily at 03:17 UTC
+  workflow_dispatch:
+
+jobs:
+  update-and-sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: 🧰 Checkout profile repo
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup GitHub CLI & jq
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y gh jq
+          echo "${{ secrets.MyGITHUB_TOKEN_SYNC }}" | gh auth login --with-token
+
+      - name: 🧾 Generate recent commits table
+        run: |
+          echo "Fetching recent commits..."
+          echo "| 🕒 Date | 🧩 Repository | 📝 Commit Message |" > commits_table.md
+          echo "|:--------|:--------------|:-----------------|" >> commits_table.md
+
+          gh api users/DaltonLuis/repos --paginate -q '.[] | select(.fork == false and .archived == false) | .full_name' | while read -r repo; do
+            gh api repos/$repo/commits --limit 1 -q '.[] | [.commit.author.date, .html_url, .commit.message] | @tsv' 2>/dev/null | while IFS=$'\t' read -r date url message; do
+              date_fmt=$(date -d "$date" +"%Y-%m-%d" 2>/dev/null || echo "$date")
+              echo "| $date_fmt | [$repo](https://github.com/$repo) | [${message:0:60}]($url) |" >> commits_table.md
+            done
+          done
+
+          echo "Updating README.md..."
+          awk '
+            /^## 📈 Recent Activity/ {print;print "";system("cat commits_table.md");next}
+            {print}
+          ' README.md > README.tmp && mv README.tmp README.md
+
+      - name: 💾 Commit updated README (if changed)
+        run: |
+          git config user.name "DaltonLuis"
+          git config user.email "luisinho2dbl@gmail.com"
+          if git diff --quiet; then
+            echo "✅ No changes to commit"
+          else
+            git add README.md
+            git commit -m "docs: update recent commits table"
+            git push
+          fi
+
+      - name: 📦 Fetch repositories to sync README
+        run: |
+          echo "Fetching target repos..."
+          gh api --paginate /user/repos -q '
+            .[] | select(.fork == false and .archived == false and .full_name != "DaltonLuis/DaltonLuis")
+          ' | jq -c . > targets.json
+
+      - name: 🔁 Sync README to repositories
+        run: |
+          set -euo pipefail
+          while IFS= read -r repo; do
+            name=$(jq -r '.name' <<< "$repo")
+            full_name=$(jq -r '.full_name' <<< "$repo")
+            default_branch=$(jq -r '.default_branch' <<< "$repo")
+            echo "🚀 Processing $full_name..."
+
+            git clone --quiet --depth 1 "https://x-access-token:${{ secrets.MyGITHUB_TOKEN_SYNC }}@github.com/${full_name}.git" workdir
+            cd workdir
+
+            if [ -f README.md ] && cmp -s ../README.md README.md; then
+              echo "✅ No changes detected for $name"
+              cd .. && rm -rf workdir
+              continue
+            fi
+
+            cp ../README.md .
+            git config user.name "DaltonLuis"
+            git config user.email "luisinho2dbl@gmail.com"
+            git add README.md
+
+            if git diff --cached --quiet; then
+              echo "No differences to commit."
+            else
+              git commit -m "chore: sync profile README"
+              if git push origin "HEAD:$default_branch" 2>/dev/null; then
+                echo "✅ Updated $full_name directly"
+              else
+                echo "⚠️ Could not push — creating PR instead..."
+                branch="sync/readme-$(date +%s)"
+                git checkout -b "$branch"
+                git push origin "$branch"
+                gh pr create \
+                  --title "chore: sync profile README" \
+                  --body "Automated sync from profile repository." \
+                  --base "$default_branch"
+              fi
+            fi
+
+            cd ..
+            rm -rf workdir
+          done < targets.json
+
+      - name: 🧹 Cleanup
+        run: rm -f targets.json commits_table.md
