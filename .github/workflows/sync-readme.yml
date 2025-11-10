@@ -4,7 +4,7 @@ on:
   push:
     paths: [README.md]
   schedule:
-    - cron: "17 3 * * *"
+    - cron: "17 3 * * *"  # Daily at 03:17 UTC
   workflow_dispatch:
 
 jobs:
@@ -17,29 +17,47 @@ jobs:
       - name: Checkout profile repo
         uses: actions/checkout@v4
 
-      - name: Setup GitHub CLI
-        uses: cli/cli/action@v2
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          version: latest
+          python-version: '3.11'
 
-      - name: Fetch repositories
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+          python -m pip install --upgrade pip
+
+      - name: Sync README to all repos
         env:
           GH_TOKEN: ${{ secrets.MyGITHUB_TOKEN_SYNC }}
         run: |
-          gh api user/repos --paginate --jq '
-            map(select(.fork == false and .archived == false and .full_name != "DaltonLuis/DaltonLuis")) 
-            | .[] | .name' > repos.txt
-
-      - name: Sync README
-        env:
-          GH_TOKEN: ${{ secrets.MyGITHUB_TOKEN_SYNC }}
-        run: |
-          while read repo; do
-            echo "Syncing $repo..."
-            gh repo clone "$repo" workdir || continue
+          set -euo pipefail
+          
+          # Fetch all repositories
+          echo "Fetching repositories..."
+          repos=$(gh api user/repos --paginate -q '[.[] | select(.fork == false and .archived == false and .full_name != "DaltonLuis/DaltonLuis")]')
+          echo "$repos" > all_repos.json
+          
+          # Filter targets
+          echo "Filtering repositories..."
+          jq -c '.[]' all_repos.json > targets.json
+          
+          # Sync README
+          echo "Starting sync..."
+          while IFS= read -r repo; do
+            name=$(jq -r '.name' <<< "$repo")
+            full_name=$(jq -r '.full_name' <<< "$repo")
+            clone_url=$(jq -r '.clone_url' <<< "$repo")
+            default_branch=$(jq -r '.default_branch' <<< "$repo")
+            
+            echo "Processing $full_name..."
+            
+            # Clone repo
+            git clone --depth 1 "https://$GH_TOKEN@github.com/$full_name" workdir
             cd workdir
             
-            # Check for README changes
+            # Check README changes
             if cmp -s ../README.md README.md; then
               echo "No changes - skipping"
               cd ..
@@ -47,20 +65,26 @@ jobs:
               continue
             fi
 
+            # Update README
             cp ../README.md .
             git add README.md
             git config user.name "DaltonLuis"
             git config user.email "luisinho2dbl@gmail.com"
-            git commit -m "chore: sync profile README"
+            git commit -m "chore: sync profile README" || true
             
-            if ! git push; then
+            # Push changes
+            if git push origin "HEAD:$default_branch"; then
+              echo "Pushed to $default_branch"
+            else
               echo "Creating PR..."
               branch="sync/readme-$(date +%s)"
               git checkout -b "$branch"
-              git push -u origin "$branch"
-              gh pr create --title "Update README" --body "Automated sync from profile" --base main
+              git push origin "$branch"
+              gh pr create --title "Update README" --body "Automated sync from profile" --base "$default_branch"
             fi
             
             cd ..
             rm -rf workdir
-          done < repos.txt
+          done < targets.json
+          
+          echo "Sync completed"
