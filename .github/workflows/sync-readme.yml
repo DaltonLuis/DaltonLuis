@@ -1,90 +1,50 @@
-name: Sync Profile README
-
-on:
-  push:
-    paths: [README.md]
-  schedule:
-    - cron: "17 3 * * *"  # Daily at 03:17 UTC
-  workflow_dispatch:
-
-jobs:
-  sync:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
-    steps:
-      - name: Checkout profile repo
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y jq
-          python -m pip install --upgrade pip
-
-      - name: Sync README to all repos
-        env:
-          GH_TOKEN: ${{ secrets.MyGITHUB_TOKEN_SYNC }}
-        run: |
-          set -euo pipefail
-          
-          # Fetch all repositories
-          echo "Fetching repositories..."
-          repos=$(gh api user/repos --paginate -q '[.[] | select(.fork == false and .archived == false and .full_name != "DaltonLuis/DaltonLuis")]')
-          echo "$repos" > all_repos.json
-          
-          # Filter targets
-          echo "Filtering repositories..."
-          jq -c '.[]' all_repos.json > targets.json
-          
-          # Sync README
-          echo "Starting sync..."
-          while IFS= read -r repo; do
-            name=$(jq -r '.name' <<< "$repo")
-            full_name=$(jq -r '.full_name' <<< "$repo")
-            clone_url=$(jq -r '.clone_url' <<< "$repo")
-            default_branch=$(jq -r '.default_branch' <<< "$repo")
-            
-            echo "Processing $full_name..."
-            
-            # Clone repo
-            git clone --depth 1 "https://$GH_TOKEN@github.com/$full_name" workdir
-            cd workdir
-            
-            # Check README changes
-            if cmp -s ../README.md README.md; then
-              echo "No changes - skipping"
-              cd ..
-              rm -rf workdir
-              continue
-            fi
-
-            # Update README
-            cp ../README.md .
-            git add README.md
-            git config user.name "DaltonLuis"
-            git config user.email "luisinho2dbl@gmail.com"
-            git commit -m "chore: sync profile README" || true
-            
-            # Push changes
-            if git push origin "HEAD:$default_branch"; then
-              echo "Pushed to $default_branch"
-            else
-              echo "Creating PR..."
-              branch="sync/readme-$(date +%s)"
-              git checkout -b "$branch"
-              git push origin "$branch"
-              gh pr create --title "Update README" --body "Automated sync from profile" --base "$default_branch"
-            fi
-            
-            cd ..
-            rm -rf workdir
-          done < targets.json
-          
-          echo "Sync completed"
+- name: Sync README to all repos
+  env:
+    GH_TOKEN: ${{ secrets.MyGITHUB_TOKEN_SYNC }}
+  run: |
+      set -euo pipefail
+      sudo apt-get install -y gh jq
+      echo "$GH_TOKEN" | gh auth login --with-token
+      
+      echo "Fetching repositories..."
+      repos=$(gh api --paginate /user/repos -q '.[] | select(.fork == false and .archived == false and .full_name != "DaltonLuis/DaltonLuis")')
+      echo "$repos" | jq -c . > targets.json
+  
+      echo "Starting sync..."
+      while IFS= read -r repo; do
+        name=$(jq -r '.name' <<< "$repo")
+        full_name=$(jq -r '.full_name' <<< "$repo")
+        default_branch=$(jq -r '.default_branch' <<< "$repo")
+  
+        echo "Processing $full_name..."
+        git clone --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/${full_name}.git" workdir
+        cd workdir
+  
+        if [ -f README.md ] && cmp -s ../README.md README.md; then
+          echo "No changes - skipping"
+          cd ..
+          rm -rf workdir
+          continue
+        fi
+  
+        cp ../README.md .
+        git add README.md
+        git config user.name "DaltonLuis"
+        git config user.email "luisinho2dbl@gmail.com"
+  
+        if git diff --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "chore: sync profile README"
+          git push origin "HEAD:$default_branch" || {
+            echo "Creating PR..."
+            branch="sync/readme-$(date +%s)"
+            git checkout -b "$branch"
+            git push origin "$branch"
+            gh pr create --title "Update README" --body "Automated sync from profile" --base "$default_branch"
+          }
+        fi
+  
+        cd ..
+      rm -rf workdir
+    done < targets.json
