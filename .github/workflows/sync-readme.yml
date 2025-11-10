@@ -1,0 +1,204 @@
+name: Update Metrics and Sync README to All Repos
+
+on:
+  push:
+    paths:
+      - README.md
+  schedule:
+    - cron: "17 3 * * *"  # diariamente às 03:17 UTC
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout profile repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Generate/refresh dynamic sections (optional)
+        run: |
+          # Coloque aqui qualquer script que gere trechos dinâmicos no README
+          # Por exemplo, atualizar uma seção entre marcadores especiais.
+          echo "No dynamic generation step configured."
+
+      - name: Sync README to all repos (public and private)
+        env:
+          GITHUB_USER: DaltonLuis
+          GH_TOKEN: ${{ secrets.MyGITHUB_TOKEN_SYNC }}
+        run: |
+          set -euo pipefail
+
+          API="https://api.github.com"
+          HEADER_AUTH="Authorization: token ${GH_TOKEN}"
+          HEADER_ACCEPT="Accept: application/vnd.github+json"
+
+          echo "Fetching repositories for ${GITHUB_USER}..."
+          # Paginação para pegar até 1000 repositórios (ajuste se necessário)
+          page=1
+          repos_json="[]"
+
+          while true; do
+            resp=$(curl -fsSL -H "${HEADER_AUTH}" -H "${HEADER_ACCEPT}" \
+              "${API}/user/repos?per_page=100&page=${page}&affiliation=owner")
+            count=$(echo "$resp" | python - <<'PY'
+import sys, json
+data=json.load(sys.stdin)
+print(len(data))
+PY
+)
+            if [ "$count" -eq 0 ]; then
+              break
+            fi
+
+            repos_json=$(python - <<'PY'
+import sys, json
+import itertools
+import_file = sys.stdin.read()
+# stdin has nothing here; we will reconstruct in bash
+PY
+)
+            # Bash-friendly: append this page to a file
+            echo "$resp" > page.json
+            if [ ! -f all_repos.json ]; then
+              cp page.json all_repos.json
+            else
+              python - <<'PY'
+import json, sys
+with open('all_repos.json') as f: a=json.load(f)
+with open('page.json') as f: b=json.load(f)
+with open('all_repos.json','w') as f: json.dump(a+b, f)
+PY
+            fi
+
+            page=$((page+1))
+          done
+
+          if [ ! -f all_repos.json ]; then
+            echo "No repositories found or API call failed."
+            exit 0
+          fi
+
+          echo "Filtering target repositories..."
+          python - <<'PY'
+import json, os, sys
+with open('all_repos.json') as f:
+    repos=json.load(f)
+
+# Filter: owner repos only, no forks, no archived, exclude the profile repo itself
+targets=[]
+for r in repos:
+    if r.get("fork"): 
+        continue
+    if r.get("archived"):
+        continue
+    full_name=r.get("full_name","")
+    if not full_name:
+        continue
+    if full_name.lower()=="daltonluis/daltonluis":
+        # We don't push back to the profile repo here
+        continue
+    targets.append({
+        "name": r["name"],
+        "full_name": full_name,
+        "ssh_url": r.get("ssh_url"),
+        "clone_url": r.get("clone_url"),
+        "default_branch": r.get("default_branch","main"),
+        "private": r.get("private", False)
+    })
+
+with open('targets.json','w') as f:
+    json.dump(targets, f, indent=2)
+
+print(f"Total targets: {len(targets)}")
+PY
+
+          echo "Preparing README for sync..."
+          # Caso queira ter um README diferente em alguns repositórios, você pode
+          # gerar variações aqui. Por padrão, copia o README.md atual.
+          SRC_README="README.md"
+
+          if [ ! -f "$SRC_README" ]; then
+            echo "README.md not found in root!"
+            exit 1
+          fi
+
+          echo "Starting sync loop..."
+          i=0
+          while read -r repo; do
+            name=$(echo "$repo" | jq -r '.name')
+            full=$(echo "$repo" | jq -r '.full_name')
+            clone=$(echo "$repo" | jq -r '.clone_url')
+            dbranch=$(echo "$repo" | jq -r '.default_branch')
+
+            echo "----"
+            echo "Repo: $full (default branch: $dbranch)"
+            # Use HTTPS with token for both public and private repos
+            clone_auth=$(echo "$clone" | sed "s#https://#https://${GH_TOKEN}@#")
+
+            rm -rf workdir
+            git clone --depth=1 "$clone_auth" workdir || { echo "Clone failed for $full"; continue; }
+            cd workdir
+
+            # Ensure default branch is checked out
+            git fetch origin "$dbranch" || true
+            git checkout "$dbranch" || git checkout -b "$dbranch"
+
+            # Only replace if content changed
+            if [ -f "README.md" ]; then
+              if cmp -s "../$SRC_README" "README.md"; then
+                echo "No changes in README.md — skipping commit."
+                cd ..
+                rm -rf workdir
+                continue
+              fi
+            fi
+
+            cp "../$SRC_README" "README.md"
+            git add README.md
+
+            if git diff --cached --quiet; then
+              echo "No staged changes — skipping."
+              cd ..
+              rm -rf workdir
+              continue
+            fi
+
+            git config user.name "DaltonLuis"
+            git config user.email "luisinho2dbl@gmail.com"
+            git commit -m "chore: sync profile README"
+            # Try push; handle repos where branch protection prevents direct pushes
+            if ! git push origin "$dbranch"; then
+              echo "Direct push failed, trying create branch + PR..."
+              BR="chore/sync-readme-$(date +%s)"
+              git checkout -b "$BR"
+              git push origin "$BR" || true
+
+              # Create PR via API
+              base="$dbranch"
+              title="chore: sync profile README"
+              body="Automated sync from profile README."
+              curl -fsSL -H "${HEADER_AUTH}" -H "${HEADER_ACCEPT}" \
+                -X POST "${API}/repos/${full}/pulls" \
+                -d "$(jq -n --arg t "$title" --arg b "$body" --arg head "$BR" --arg base "$base" '{title:$t, body:$b, head:$head, base:$base}')" \
+                || echo "Failed to create PR for $full"
+            fi
+
+            cd ..
+            rm -rf workdir
+            i=$((i+1))
+          done < <(jq -c '.[]' targets.json)
+
+          echo "Sync completed."
