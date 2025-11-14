@@ -1,6 +1,6 @@
-# 👋 Hi, I'm **Dalton Luís**
+# Hi, I'm **Dalton Luís**
 
-# 🏆 Senior Backend Developer (Professional Profile)
+# Backend Developer
 
 I am a backend-focused developer with a solid foundation in software
 engineering and practical experience building APIs, managing relational
@@ -14,7 +14,7 @@ backend patterns and technologies as I advance.
 
 ------------------------------------------------------------------------
 
-## 🚀 Core Competencies
+## Core Competencies
 
 -   Backend application development using **C# (.NET Core / ASP.NET
     Core)**, **Node.js**, and **Python (FastAPI)**.
@@ -29,29 +29,29 @@ backend patterns and technologies as I advance.
 
 ------------------------------------------------------------------------
 
-## 🧠 Tech Stack Overview
+## Tech Stack Overview
 
-### 🎯 **Backend Technologies**
+### **Backend Technologies**
 
 -   **C# \| ASP.NET Core \| .NET Core**
 -   **Node.js \| JavaScript \| TypeScript**
 -   **Python (FastAPI)**
 -   **Java** (intermediate level)
 
-### 🗄️ **Databases**
+### **Databases**
 
 -   PostgreSQL
 -   MySQL / MariaDB
 -   SQL Server
 -   Stored procedures, indexing strategies, query tuning, schema design
 
-### ⚙️ **DevOps & Tools**
+### **DevOps & Tools**
 
 -   Git, GitHub, GitLab
 -   Docker & Docker Compose
 -   GitHub Actions / GitLab CI
 
-### 🎨 **Frontend Knowledge (Support Level)**
+### **Frontend Knowledge (Support Level)**
 
 -   HTML, CSS, TailwindCSS
 -   Vue.js & Nuxt.js
@@ -59,26 +59,26 @@ backend patterns and technologies as I advance.
 
 ------------------------------------------------------------------------
 
-# 📊 GitHub Performance Overview
+# GitHub Performance Overview
 
-### 🔥 GitHub Stats
+### GitHub Stats
 
 ![GitHub
 Stats](https://github-readme-stats.vercel.app/api?username=daltonluis&show_icons=true&hide_title=false&theme=default)
 
-### 💡 Most Used Languages
+### Most Used Languages
 
 ![Top
 Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=daltonluis&layout=compact&theme=default)
 
-### 📈 Contribution Graph
+### Contribution Graph
 
 ![Contribution
 Graph](https://github-readme-activity-graph.vercel.app/graph?username=daltonluis&theme=light)
 
 ------------------------------------------------------------------------
 
-# 🧩 Engineering Philosophy
+# Engineering Philosophy
 
 I believe in: - Writing code that is **simple, clear, and easy to
 maintain**. - Building solutions with **practicality and real-world
@@ -88,7 +88,7 @@ patterns.
 
 ------------------------------------------------------------------------
 
-# 🎯 Current Learning Path
+# Current Learning Path
 
 -   Deep-dive mastery of **C# and the .NET ecosystem**
 -   Exploring modern backend patterns (while still grounded in MVC)
@@ -98,13 +98,13 @@ patterns.
 
 ------------------------------------------------------------------------
 
-# 🎓 Education
+# Education
 
 **Bachelor's Degree in Computer Engineering**
 
 ------------------------------------------------------------------------
 
-# 📬 Contact
+# Contact
 
 -   LinkedIn: *(your link)*
 -   Email: *(your contact email)*
