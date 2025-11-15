@@ -106,8 +106,8 @@ patterns.
 
 # Contact
 
--   LinkedIn: *(your link)*
--   Email: *(your contact email)*
+-   LinkedIn: *(www.linkedin.com/in/dalton-bandeira-luís)*
+-   Email: *(luisinho2dbl@gmail.com)*
 
 ------------------------------------------------------------------------
 
