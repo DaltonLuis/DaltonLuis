@@ -98,8 +98,6 @@ patterns.
 
 # GitHub Performance Overview
 
-### Languages and Tecnologies
-
 ### GitHub Stats
 <p>
     <img 
