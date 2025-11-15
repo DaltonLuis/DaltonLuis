@@ -61,15 +61,25 @@ backend patterns and technologies as I advance.
 
 # GitHub Performance Overview
 
+### Languages and Tecnologies
+
 ### GitHub Stats
-
-![GitHub
-Stats](https://github-readme-stats.vercel.app/api?username=DaltonLuis&show_icons=true&hide_title=false&theme=tokyonight&include_all_commits=true)
-
-### Most Used Languages
-
-![Top
-Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=DaltonLuis&layout=compact&theme=tokyonight&langs_count=9)
+<p>
+    <img 
+        align="left"
+        alt="GitHub Stats"
+        height="200"
+        style="padding-right: 10px;"
+        src="https://github-readme-stats.vercel.app/api?username=DaltonLuis&show_icons=true&hide_title=false&theme=tokyonight&include_all_commits=true" 
+    />
+     <img 
+        align="left"
+        alt="GitHub Stats"
+        height="200"
+        style="padding-right: 10px;"
+        src="https://github-readme-stats.vercel.app/api/top-langs/?username=DaltonLuis&layout=compact&theme=tokyonight&langs_count=9" 
+    />
+</p>
 
 ### Contribution Graph
 
