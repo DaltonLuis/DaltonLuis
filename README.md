@@ -92,6 +92,10 @@ patterns.
 
 ------------------------------------------------------------------------
 
+### ⭐ *High-quality engineering, strong fundamentals, and consistent improvement --- this is what drives my work.*
+
+------------------------------------------------------------------------
+
 # GitHub Performance Overview
 
 ### Languages and Tecnologies
@@ -114,6 +118,3 @@ patterns.
     />
 </p>
 
-------------------------------------------------------------------------
-
-### ⭐ *High-quality engineering, strong fundamentals, and consistent improvement --- this is what drives my work.*
