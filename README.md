@@ -69,7 +69,7 @@ Stats](https://github-readme-stats.vercel.app/api?username=DaltonLuis&show_icons
 ### Most Used Languages
 
 ![Top
-Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=DaltonLuis&layout=compact&theme=tokyonigt&langs_count=9)
+Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=DaltonLuis&layout=compact&theme=tokyonight&langs_count=9)
 
 ### Contribution Graph
 
