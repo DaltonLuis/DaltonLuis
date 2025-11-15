@@ -59,35 +59,6 @@ backend patterns and technologies as I advance.
 
 ------------------------------------------------------------------------
 
-# GitHub Performance Overview
-
-### Languages and Tecnologies
-
-### GitHub Stats
-<p>
-    <img 
-        align="left"
-        alt="GitHub Stats"
-        height="200"
-        style="padding-right: 10px;"
-        src="https://github-readme-stats.vercel.app/api?username=DaltonLuis&show_icons=true&hide_title=false&theme=tokyonight&include_all_commits=true" 
-    />
-     <img 
-        align="left"
-        alt="GitHub Stats"
-        height="200"
-        style="padding-right: 10px;"
-        src="https://github-readme-stats.vercel.app/api/top-langs/?username=DaltonLuis&layout=compact&theme=tokyonight&langs_count=9" 
-    />
-</p>
-
-### Contribution Graph
-
-![Contribution
-Graph](https://github-readme-activity-graph.vercel.app/graph?username=daltonluis&theme=light)
-
-------------------------------------------------------------------------
-
 # Engineering Philosophy
 
 I believe in: - Writing code that is **simple, clear, and easy to
@@ -118,6 +89,30 @@ patterns.
 
 -   LinkedIn: *(www.linkedin.com/in/dalton-bandeira-luís)*
 -   Email: *(luisinho2dbl@gmail.com)*
+
+------------------------------------------------------------------------
+
+# GitHub Performance Overview
+
+### Languages and Tecnologies
+
+### GitHub Stats
+<p>
+    <img 
+        align="left"
+        alt="GitHub Stats"
+        height="200"
+        style="padding-right: 10px;"
+        src="https://github-readme-stats.vercel.app/api?username=DaltonLuis&show_icons=true&hide_title=false&theme=tokyonight&include_all_commits=true" 
+    />
+     <img 
+        align="left"
+        alt="GitHub Stats"
+        height="200"
+        style="padding-right: 10px;"
+        src="https://github-readme-stats.vercel.app/api/top-langs/?username=DaltonLuis&layout=compact&theme=tokyonight&langs_count=9" 
+    />
+</p>
 
 ------------------------------------------------------------------------
 
