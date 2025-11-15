@@ -64,17 +64,17 @@ backend patterns and technologies as I advance.
 ### GitHub Stats
 
 ![GitHub
-Stats](https://github-readme-stats.vercel.app/api?username=daltonluis&show_icons=true&hide_title=false&theme=default)
+Stats](https://github-readme-stats.vercel.app/api?username=DaltonLuis&show_icons=true&hide_title=false&theme=tokyonight&include_all_commits=true)
 
 ### Most Used Languages
 
 ![Top
-Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=daltonluis&layout=compact&theme=default)
+Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=DaltonLuis&layout=compact&theme=tokyonigt)
 
 ### Contribution Graph
 
 ![Contribution
-Graph](https://github-readme-activity-graph.vercel.app/graph?username=daltonluis&theme=light)
+Graph](https://github-readme-activity-graph.vercel.app/graph?username=daltonluis&theme=light&langs_count=9)
 
 ------------------------------------------------------------------------
 
