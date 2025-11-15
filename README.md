@@ -69,12 +69,12 @@ Stats](https://github-readme-stats.vercel.app/api?username=DaltonLuis&show_icons
 ### Most Used Languages
 
 ![Top
-Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=DaltonLuis&layout=compact&theme=tokyonigt)
+Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=DaltonLuis&layout=compact&theme=tokyonigt&langs_count=9)
 
 ### Contribution Graph
 
 ![Contribution
-Graph](https://github-readme-activity-graph.vercel.app/graph?username=daltonluis&theme=light&langs_count=9)
+Graph](https://github-readme-activity-graph.vercel.app/graph?username=daltonluis&theme=light)
 
 ------------------------------------------------------------------------
 
