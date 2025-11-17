@@ -2,9 +2,9 @@
 
 # 👋 Hi, I'm **Dalton Luís**
 
-### 💻 Backend Developer | .NET Specialist
+### 💻 Backend Developer
 
-<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=2E9EF7&center=true&vCenter=true&width=435&lines=Backend+Developer;.NET+%7C+Node.js+%7C+Python;Building+Scalable+APIs;Database+Optimization+Expert" alt="Typing SVG" />
+<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=2E9EF7&center=true&vCenter=true&width=435&lines=Backend+Developer;.NET+%7C+Node.js+%7C+Python;Building+Scalable+APIs;Database+Optimization" alt="Typing SVG" />
 
 </div>
 
