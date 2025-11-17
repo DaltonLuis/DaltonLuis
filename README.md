@@ -104,15 +104,15 @@ patterns.
         align="left"
         alt="GitHub Stats"
         height="200"
-        style="padding-right: 10px;"
-        src="https://github-readme-stats.vercel.app/api?username=DaltonLuis&show_icons=true&theme=tokyonight&include_all_commits=true" 
+        src="https://github-readme-stats.vercel.app/api?username=daltonluis&show_icons=true&theme=tokyonight&include_all_commits=true"
     />
-     <img 
+    <img 
         align="left"
-        alt="GitHub Stats"
+        alt="Top Languages"
         height="200"
-        style="padding-right: 10px;"
-        src="https://github-readme-stats.vercel.app/api/top-langs/?username=DaltonLuis&layout=compact&theme=tokyonight&langs_count=9" 
+        src="https://github-readme-stats.vercel.app/api/top-langs/?username=daltonluis&layout=compact&theme=tokyonight&langs_count=9"
     />
 </p>
+
+<br clear="left" />
 
